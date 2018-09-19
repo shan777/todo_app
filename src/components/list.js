@@ -1,33 +1,17 @@
-import React, { Component } from 'react';
-import dummyListData from '../dummy_data/list_data';
+import React from 'react';
+
 
 //console.log('Dummy Data:', dummyListData); //checking if my import dummy data is working
 
-class List extends Component {
-    state = { //defining the state, defining the property on the class, this is javascript
-        list: []
-    } //don't need to have the constructor
+const List = (props) => { //every time state changes, this render function gets called --> changed to functional component
+    //functional component always have props passed in
 
-    componentDidMount() {  //lifestyle method
-        this.getListData();
-    }
-
-
-
-    getListData() {
-        //call server to get data
-
-        //then use data to set the data
-        this.setState({
-            list: dummyListData
-        }) 
-    }
-
-    render() { //every time state changes, this render function gets called
         //console.log('State: ',this.state);
 
         //loop over data to display everything in the array
-        const listElements = this.state.list.map((item, index) => {  //.map cuz list is an array then callback function inside map()
+       // const listElements = this.state.list.map((item, index) => {  //.map cuz list is an array then callback function inside map()
+       const listElements = props.data.map((item, index) => {  //.map cuz list is an array then callback function inside map()
+
             return <li className="collection-item" key={item._id}>{item.title}</li>
         });
         return (
@@ -37,7 +21,6 @@ class List extends Component {
                 </ul>
             
         );
-    }
 }
 
 export default List;
