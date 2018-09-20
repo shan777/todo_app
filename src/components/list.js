@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Item from './item';
 
 //console.log('Dummy Data:', dummyListData); //checking if my import dummy data is working
 
@@ -11,8 +11,7 @@ const List = (props) => { //every time state changes, this render function gets 
         //loop over data to display everything in the array
        // const listElements = this.state.list.map((item, index) => {  //.map cuz list is an array then callback function inside map()
        const listElements = props.data.map((item, index) => {  //.map cuz list is an array then callback function inside map()
-
-            return <li className="collection-item" key={item._id}>{item.title}</li>
+            return <Item key={item._id} item={item} delete={() => props.delete(index)}/>
         });
         return (
             //don't need to wrap everything in <div> ........
