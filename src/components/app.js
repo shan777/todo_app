@@ -27,12 +27,25 @@ class App extends Component {
         }) 
     }
 
-    addItem = (item) => { {/*binding with => */} 
+    addItem = (item) => {                             {/*binding with the fat arrow => */} 
         item._id = new Date().getTime(); //time stamp in miliseconds as an id..temporary
 
         this.setState({
             list: [...this.state.list, item] //appending to existing array in my own words ......... item can go beginning of the list or at the end of the list
         });
+    }
+
+    deleteItem = (index) => {
+        const {list} = this.state;
+
+        const listCopy = list.slice();   //makes the copy of the array
+        
+        listCopy.splice(index, 1);
+
+        this.setState({
+            list: listCopy
+        });
+
     }
 
     render() {
@@ -42,7 +55,7 @@ class App extends Component {
             <div className="container">
                 <h1 className="center">To-Do List</h1>
                 <AddItem add={this.addItem}/>   {/*//add is the new prop */}
-                <List data={list}/>    {/*//data here can be called whatever.. data or list, or whatever.. sending through props*/}
+                <List data={list} delete={this.deleteItem}/>    {/*//data here can be called whatever.. data or list, or whatever.. sending through props*/}
             </div>
         );
     }
