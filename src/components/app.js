@@ -18,14 +18,14 @@ class App extends Component {
     state = { //defining the state, defining the property on the class, this is javascript
         list: [],
         error: ''  //to display/notify the user the error
-    } //don't need to have the constructor
+    }; //don't need to have the constructor
 
     componentDidMount() {  //lifestyle method
         this.getListData();
     }
 
-}
-    //old way
+
+    //old way of getListData()
     //call server to get data after componentDidMount is called
     // getListData() {
         // const resp = axios.get(`${BASE_URL}/todos${API_KEY}`).then((resp) => { //gets called
@@ -54,14 +54,16 @@ class App extends Component {
         // }); 
     // }
 
+
     //async way!
     async getListData() {
 
         try {
-            const resp = await axios.get(`${BASE_URL}/tods${API_KEY}`);
+            const resp = await axios.get(`${BASE_URL}/todos${API_KEY}`);
 
-            if(!resp.data.success)
+            if(!resp.data.success){
                 throw new Error('Something went wrong');
+            }
 
             this.setState({
                 list: resp.data.todos
