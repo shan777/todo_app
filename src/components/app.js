@@ -1,10 +1,11 @@
 import 'materialize-css/dist/css/materialize.min.css';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 import List from './list';
 import AddItem from './add_item';
 //import dummyListData from '../dummy_data/list_data';
-
+import Details from './details';
+import NotFound from './not_found';
 
 
 
@@ -17,13 +18,21 @@ class App extends Component {
 
         return ( 
             <div className="container">
-                <Route path="/" exact component={List}/>    
+            <Switch>
+            <Route path="/" exact component={List}/>    
                 {/* // {...routingInfo} is same as history={routingInfo.history} location={routingInfo.location} match={routingInfo.match} adding these as props.. destructuring*/}
 
                 {/*<List error={error} data={list} delete={this.deleteItem}/>    //data here can be called whatever.. data or list, or whatever.. sending through props*/}
                 
                 <Route path="/add-item" component={AddItem}/>   
                     {/*//add is the new prop */}
+
+                <Route path="/item/:itemId" component={Details}/>     
+                {/*whatever follows the colon, this will be the property props.match.params.itemId*/} 
+
+                <Route component={NotFound}/>   {/*this is the default*/}
+            </Switch>
+                
             </div>
         );
     }
