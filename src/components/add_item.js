@@ -1,4 +1,7 @@
 import React from 'react';
+import NavBtn from './nav_btn';
+import axios from 'axios';
+import config from '../config';
 
 class AddItem extends React.Component { //same exact thing as      "" import React, {Component} 'react'; ""
     state = {
@@ -7,23 +10,24 @@ class AddItem extends React.Component { //same exact thing as      "" import Rea
     }
 
     // handleAddItem(event) {
-    handleAddItem = (event) => {  //fat arrow automatically binds it for you   
+    handleAddItem = async (event) => {  //fat arrow automatically binds it for you   
         event.preventDefault();
 
-        //console.log('New Item: ', this.state);
-        this.props.add(this.state);
+        await axios.post(`${config.API_URL}/todos${config.API_KEY}`, this.state);
 
-        this.setState({
-            title: '',
-            details: ''
-        });
+        this.props.history.push('/'); //take me back home after item is added
     }
 
     render() {
         const {title, details} = this.state; //so we don't have to type in this.state over and over again.
 
+        // console.log('Add props:', this.props);
+
         return(
-            <form onSubmit={this.handleAddItem}>
+            <div>
+                <h1 className="center">Add To Do Item</h1>
+                <NavBtn to="/" text="Back To List" color="pink"/>
+                <form onSubmit={this.handleAddItem}>
                 <div className="row">
                     <div className="col s8 offset-s2">
                         <label>Title</label>
@@ -49,6 +53,7 @@ class AddItem extends React.Component { //same exact thing as      "" import Rea
                     </div>
                 </div>
             </form>
+            </div>
         );
     }
 }
